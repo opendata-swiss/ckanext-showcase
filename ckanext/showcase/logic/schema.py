@@ -39,6 +39,9 @@ def showcase_base_schema():
         'resources': default_resource_schema(),
         'tags': default_tags_schema(),
         'tag_string': [ignore_missing, tag_string_convert],
+        'showcase_type': [toolkit.get_validator('ignore_missing'),
+                          toolkit.get_converter('convert_to_extras'),
+                          unicode],
         'extras': default_extras_schema(),
         'save': [ignore],
         'return_to': [ignore],
@@ -93,6 +96,7 @@ def showcase_show_schema():
     schema['author_email'] = []
     schema['notes'] = []
     schema['url'] = []
+    schema['showcase_type'] = []
 
     # Add several keys that are missing from default_create_package_schema(),
     # so validation doesn't strip the keys from the package dicts.
@@ -106,6 +110,8 @@ def showcase_show_schema():
     schema.update({
         'image_url': [toolkit.get_converter('convert_from_extras'),
                       toolkit.get_validator('ignore_missing')],
+        'showcase_type': [toolkit.get_converter('convert_from_extras'),
+                          toolkit.get_validator('ignore_missing')],
         'original_related_item_id': [
             toolkit.get_converter('convert_from_extras'),
             toolkit.get_validator('ignore_missing')]

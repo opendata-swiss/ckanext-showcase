@@ -53,6 +53,8 @@ class ShowcasePlugin(plugins.SingletonPlugin, lib_plugins.DefaultDatasetForm):
         if tk.check_ckan_version(min_version='2.4'):
             tk.add_ckan_admin_tab(config, 'ckanext_showcase_admins',
                                   'Showcase Config')
+        # create vocabulary if necessary
+        showcase_helpers.create_showcase_types()
 
     # IConfigurable
 
@@ -96,7 +98,8 @@ class ShowcasePlugin(plugins.SingletonPlugin, lib_plugins.DefaultDatasetForm):
     def get_helpers(self):
         return {
             'facet_remove_field': showcase_helpers.facet_remove_field,
-            'get_site_statistics': showcase_helpers.get_site_statistics
+            'get_site_statistics': showcase_helpers.get_site_statistics,
+            'showcase_types': showcase_helpers.showcase_types(),
         }
 
     # IFacets
