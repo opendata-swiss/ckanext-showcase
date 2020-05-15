@@ -62,6 +62,12 @@
       {% endblock %}
     </h1>
 
+    <h3>
+      {% if pkg.showcase_type %}
+      <a href="{% url_for controller='ckanext.showcase.controller:ShowcaseController', action='search', showcase_type=pkg.showcase_type %}">{{ h.truncate(pkg.showcase_type, 22) }}</a>
+      {% endif %}
+    </h3>
+
     {% if pkg.image_display_url %}
       <p class="ckanext-showcase-image-container"><img src="{{ pkg.image_display_url }}" alt="{{ name }}" class="media-image ckanext-showcase-image img-responsive"></p>
     {% endif %}
